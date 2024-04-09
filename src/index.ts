@@ -164,6 +164,8 @@ async function start() {
       );
       let tauriJson = JSON.parse(readFileSync(tauriJsonPath).toString());
       tauriJson.package.productName = name;
+      tauriJson.build.beforeDevCommand = `${packageManager} dev`;
+      tauriJson.build.beforeBuildCommand = `${packageManager} build`;
       writeFileSync(
         tauriJsonPath,
         JSON.stringify(tauriJson, null, "\t"),
