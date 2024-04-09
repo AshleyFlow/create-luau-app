@@ -79,6 +79,8 @@ function successMessage(context: {
   }
 
   term.bold.underline("'aftman install'\n");
+
+  term.bold.yellow("'npx npmluau'\n");
 }
 
 async function start() {
@@ -174,10 +176,6 @@ async function start() {
     fullDirectory,
     packageManager,
     type,
-  });
-
-  child_process.execSync("npx npmluau", {
-    stdio: "inherit",
   });
 
   process.exit();
