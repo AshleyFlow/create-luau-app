@@ -1,5 +1,5 @@
 import { terminal as term } from "terminal-kit";
-import { ProjectType, projectTypes } from ".";
+import { PackageManager, ProjectType, packageManagers, projectTypes } from ".";
 
 export function errorAndExit(msg?: string): never {
   if (msg) {
@@ -17,7 +17,7 @@ export async function getName(): Promise<string> {
 
     term.inputField(
       {
-        default: "lune-electron",
+        default: "my_luau_app",
       },
       (error, name) => {
         if (error || !name) errorAndExit();
@@ -45,6 +45,29 @@ export async function getDirectory(context: { name: string }): Promise<string> {
         if (error) errorAndExit();
         term("\n");
         res(directory);
+      }
+    );
+  });
+}
+
+export async function getPackageManager() {
+  term.clear();
+
+  return new Promise<PackageManager>((res) => {
+    term.gridMenu(
+      packageManagers,
+      {
+        y: 1,
+        style: term.inverse,
+        selectedStyle: term.dim.magenta.bgGray,
+      },
+      (error, response) => {
+        if (error) errorAndExit();
+        if (packageManagers[response.selectedIndex] === PackageManager.Cancel)
+          errorAndExit("Canceled command");
+
+        term("\n");
+        res(packageManagers[response.selectedIndex]);
       }
     );
   });

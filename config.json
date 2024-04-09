@@ -1,3 +1,4 @@
 {
-    "git": "https://github.com/HighFlowey/lune-electron-template.git"
+  "electron": "https://github.com/HighFlowey/lune-electron-template.git",
+  "tauri": "https://github.com/HighFlowey/lune-tauri-template.git"
 }
