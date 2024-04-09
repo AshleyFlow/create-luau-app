@@ -52,7 +52,7 @@ function successMessage(context: {
 
   if (context.fullDirectory != process.cwd()) {
     term.bold.underline(
-      `'cd ${path.relative(process.cwd(), context.fullDirectory)}'\n\n`
+      `'cd ${path.relative(process.cwd(), context.fullDirectory)}'\n`
     );
   }
 
@@ -70,15 +70,15 @@ function successMessage(context: {
       break;
   }
 
-  term.bold.underline(`'${packageManagerInstallText}'\n\n`);
+  term.bold.underline(`'${packageManagerInstallText}'\n`);
 
   if (context.type === ProjectType.TauriApp) {
     term.bold.underline(
-      `'cd tauri && ${packageManagerInstallText} && cd ..'\n\n`
+      `'cd tauri && ${packageManagerInstallText} && cd ..'\n`
     );
   }
 
-  term.bold.underline("'aftman install'\n\n");
+  term.bold.underline("'aftman install'\n");
 }
 
 async function start() {
@@ -174,6 +174,10 @@ async function start() {
     fullDirectory,
     packageManager,
     type,
+  });
+
+  child_process.execSync("npx npmluau", {
+    stdio: "inherit",
   });
 
   process.exit();

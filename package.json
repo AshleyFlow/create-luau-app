@@ -1,7 +1,7 @@
 {
   "name": "create-luau-app",
   "description": "a project generator for electron-lune-template",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "scripts": {
     "prestart": "tsc",
