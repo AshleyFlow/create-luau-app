@@ -115,9 +115,19 @@ async function start() {
     }
   );
 
+  const packageJsonPath = path.resolve(fullDirectory, "package.json");
+  let packageJson = JSON.parse(readFileSync(packageJsonPath).toString());
+
+  const packageJsonScripts: {
+    [key: string]: string;
+  } = packageJson.scripts;
+
+  Object.keys(packageJsonScripts).forEach((key) => {
+    const value = packageJsonScripts[key];
+    packageJsonScripts[key] = value.replace("yarn", packageManager);
+  });
+
   if (type === ProjectType.ElectronApp) {
-    const packageJsonPath = path.resolve(fullDirectory, "package.json");
-    let packageJson = JSON.parse(readFileSync(packageJsonPath).toString());
     packageJson.name = name;
     packageJson.description = "";
     packageJson.version = "1.0.0";
@@ -130,8 +140,6 @@ async function start() {
     );
   } else if (type === ProjectType.TauriApp) {
     {
-      const packageJsonPath = path.resolve(fullDirectory, "package.json");
-      let packageJson = JSON.parse(readFileSync(packageJsonPath).toString());
       packageJson.name = name;
       packageJson.description = "";
       packageJson.version = "1.0.0";
