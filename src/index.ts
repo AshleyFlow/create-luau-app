@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import * as child_process from "child_process";
 import config from "../config";
+import { simpleGit } from "simple-git";
 import { terminal as term } from "terminal-kit";
 import * as path from "path";
 import isEmpty from "../util/isEmpty";
@@ -111,14 +112,12 @@ async function start() {
   if (!isEmpty(fullDirectory))
     errorAndExit("The project directory must be empty");
 
-  child_process.execSync(
-    `git clone --depth 1 ${
-      type === ProjectType.TauriApp ? config.tauri : config.electron
-    } ${fullDirectory}`,
-    {
-      stdio: "inherit",
-    }
-  );
+  const git = simpleGit();
+  const repo = type === ProjectType.TauriApp ? config.tauri : config.electron;
+
+  await git.clone(repo, fullDirectory, {
+    "--depth": "1",
+  });
 
   const packageJsonPath = path.resolve(fullDirectory, "package.json");
   let packageJson = JSON.parse(readFileSync(packageJsonPath).toString());

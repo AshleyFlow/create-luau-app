@@ -18,6 +18,7 @@
     "typescript": "^5.4.4"
   },
   "dependencies": {
+    "simple-git": "^3.26.0",
     "terminal-kit": "^3.1.1"
   }
 }
