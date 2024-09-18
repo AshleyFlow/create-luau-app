@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-import * as child_process from "child_process";
-import config from "../config";
 import { simpleGit } from "simple-git";
 import { terminal as term } from "terminal-kit";
 import * as path from "path";
@@ -13,6 +11,7 @@ import {
   getPackageManager,
   getProjectType,
 } from "./prompts";
+import { exit } from "process";
 
 export enum PackageManager {
   NPM = "npm",
@@ -31,6 +30,7 @@ export const packageManagers = [
 ];
 
 export enum ProjectType {
+  LuneWeb = "luneweb",
   TauriApp = "(legacy) tauri-app",
   ElectronApp = "(legacy) electron-app",
   Library = "library",
@@ -38,11 +38,24 @@ export enum ProjectType {
 }
 
 export const projectTypes = [
+  ProjectType.LuneWeb,
   ProjectType.TauriApp,
   ProjectType.ElectronApp,
   ProjectType.Library,
   ProjectType.Cancel,
 ];
+
+export const projectTypeRepos: {
+  [K in ProjectType]: string;
+} = {
+  [ProjectType.LuneWeb]: "https://github.com/LuneWeb/Template.git",
+  [ProjectType.ElectronApp]:
+    "https://github.com/AshleyFlow/lune-electron-template.git",
+  [ProjectType.TauriApp]:
+    "https://github.com/AshleyFlow/lune-tauri-template.git",
+  [ProjectType.Library]: "",
+  [ProjectType.Cancel]: "",
+};
 
 function successMessage(context: {
   fullDirectory: string;
@@ -113,7 +126,11 @@ async function start() {
     errorAndExit("The project directory must be empty");
 
   const git = simpleGit();
-  const repo = type === ProjectType.TauriApp ? config.tauri : config.electron;
+  const repo = projectTypeRepos[type];
+
+  if (repo.length === 0) {
+    exit(0);
+  }
 
   await git.clone(repo, fullDirectory, {
     "--depth": "1",
