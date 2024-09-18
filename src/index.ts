@@ -16,6 +16,7 @@ import {
 export enum PackageManager {
   NPM = "npm",
   PNPM = "pnpm",
+  Bun = "bun",
   Yarn = "yarn",
   Cancel = "cancel",
 }
@@ -23,6 +24,7 @@ export enum PackageManager {
 export const packageManagers = [
   PackageManager.NPM,
   PackageManager.PNPM,
+  PackageManager.Bun,
   PackageManager.Yarn,
   PackageManager.Cancel,
 ];
@@ -64,6 +66,9 @@ function successMessage(context: {
       break;
     case PackageManager.PNPM:
       packageManagerInstallText = "pnpm install";
+      break;
+    case PackageManager.Bun:
+      packageManagerInstallText = "bun install";
       break;
     case PackageManager.Yarn:
       packageManagerInstallText = "yarn install";
