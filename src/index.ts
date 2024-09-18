@@ -97,9 +97,12 @@ function successMessage(context: {
     );
   }
 
-  term.bold.underline("'aftman install'\n");
-
-  term.bold.yellow("'npx npmluau'\n");
+  if (context.type === ProjectType.LuneWeb) {
+    term.bold.underline("'rokit install'\n");
+  } else {
+    term.bold.underline("'aftman install'\n");
+    term.bold.yellow("'npx npmluau'\n");
+  }
 }
 
 async function start() {
@@ -141,7 +144,7 @@ async function start() {
 
   const packageJsonScripts: {
     [key: string]: string;
-  } = packageJson.scripts;
+  } = packageJson.scripts ?? {};
 
   Object.keys(packageJsonScripts).forEach((key) => {
     const value = packageJsonScripts[key];
