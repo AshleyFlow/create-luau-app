@@ -3,4 +3,5 @@ a project generator for [lune-electron-template](https://github.com/HighFlowey/l
 
 `npm create luau-app`
 `yarn create luau-app`
+`bun create luau-app`
 `pnpm create luau-app`
