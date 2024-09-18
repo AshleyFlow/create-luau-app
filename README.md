@@ -1,6 +1,6 @@
 # CREATE-LUAU-APP
 
-a project generator for [lune-electron-template](https://github.com/HighFlowey/lune-electron-template/) and [lune-tauri-template](https://github.com/HighFlowey/lune-tauri-template)
+a project generator for creating luau apps
 
 `npm create luau-app`
 `yarn create luau-app`
