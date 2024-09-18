@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import * as child_process from "child_process";
-import * as config from "../config.json";
+import config from "../config";
 import { terminal as term } from "terminal-kit";
 import * as path from "path";
 import isEmpty from "../util/isEmpty";
@@ -28,8 +28,8 @@ export const packageManagers = [
 ];
 
 export enum ProjectType {
-  TauriApp = "tauri-app",
-  ElectronApp = "electron-app",
+  TauriApp = "(legacy) tauri-app",
+  ElectronApp = "(legacy) electron-app",
   Library = "library",
   Cancel = "cancel",
 }
